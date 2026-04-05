@@ -1,1 +1,125 @@
-MANUAL TÉCNICO: SISTEMA DE AUTOMATIZACIÓN PSICOMÉTRICA (MND)Versión: 1.0 (Maestra)Proyecto: Mujeres NeurodivergentesRol de IA: Arquitecto Clínico y Metodológico🟢 I. MARCO ÉTICO Y PARADIGMA DE IDENTIDADTodo el procesamiento de lenguaje natural (NLP) debe estar filtrado por el Enfoque Neuroafirmativo.Prohibición Estricta: No utilizar las palabras trastorno, síntoma o dificultad en la narrativa cualitativa.Glosario de Reemplazo:Sustituir por: Condición/neurotipo, característica/rasgo, desafío/área de soporte/barrera del entorno.Excepción Legal: Solo se permite el término "Trastorno" en la sección "Orientación Diagnóstica Principal" para fines de validez técnica/legal.🔵 II. PROCESO CLÍNICO Y FLUJO DE TRABAJOLa aplicación organiza el proceso en 5 etapas secuenciales:Inicio: Entrevistas clínicas, historia de desarrollo y observación (cámara encendida).Hipótesis: Formulación inicial y selección de batería.Evaluación de Personalidad (Etapa Temprana):Adultos: ICCP o PID-5 + SCL.Adolescentes: MMPI-A.Altas Capacidades (AACC): NEO PI-R.Pruebas Específicas: Aplicación de módulos de Autismo, TDAH o AACC.Integración: Análisis de discrepancias, detección de camuflaje y redacción de informe.🟡 III. LIBRERÍA PSICOMÉTRICA (MÓDULOS TÉCNICOS)1. Área Cognitiva e InteligenciaWAIS-IV: * Cálculo: Automatizar PE de Balanzas, Letras y Números, Cancelación y Figuras Incompletas.Sustitución: Si Cubos está vacío, usar Balanzas para el cálculo de Índices y CIT.Obligatorio: Calcular y graficar el ICG (Índice de Capacidad General) vs. CIT.Raven: Celda D21 (PB). Cruzar con Edad para obtener Percentil (PC) y Rango (I a V).CREA: Habilitar carga de formas A y B.2. Área Autismo (Fenotipo Femenino y Adultos)ADOS-2 (Mód. 4): Extracción de Totales en pestaña 'Algoritmo Diagnóstico'.Cortes: Comunicación $\ge 3$, Interacción Social $\ge 6$, Total $\ge 10$.AAA: Buscar etiquetas 'PB A' a 'PB E'. El valor está en la celda inferior. Si PB E = 0, no cumple prerrequisitos.GQ-ASC: Celda F30. Corte clínico $\ge 57$. Foco en áreas de Imaginación y Camuflaje.CAT-Q: Escala 1-7. Invertir ítems 3, 12, 13, 17, 18, 23 y 24 ($8 - x$). Corte $> 100$ es significativo.RAADS-R: Celda I82. Corte $\ge 65$.AMSE: Suma de 7 ítems (C4-C10). Corte $\ge 5$ sugiere TEA.AQ: Celda I54. Significativo $\ge 32$; Límite 26-31.ASDI: Comparar columna E con columna D (Mínimo requerido de Gillberg).3. Área TDAH (Adultos y Retrospectivo)ADHD-RS: Inatención (J13 $\ge 21$), Total (A+B $\ge 24$).DIVA-5: Tabla de presencia/ausencia Niñez vs. Adultez (A1-A9 y H1-H9).WURS-25: Celda J46. Corte $\ge 36$.CAARS-L: Extraer L4 a S4. Convertir a Puntaje T mediante baremo PDF. Significativo $\ge 65$.ASRS-V1.1: Parte A (Ítems 1-6). Si hay $\ge 4$ puntos en casillas sombreadas, es altamente consistente con TDAH.4. Área Personalidad, Emocional y TraumaICCP: Pestaña 'PB'. Evaluar Puntaje Transformado (PT).Detección Diferencial: Rasgos TLP vs. ND (Cruce de AF, DI, FS, FI, SE, MO).BDI-II (Depresión): Celda F143. Alerta Crítica: Si Ítem 9 (filas 57-60) $> 0$.BAI (Ansiedad): Celda R28. Baja (0-21), Moderada (22-35), Severa ($\ge 36$).ITQ (Trauma CIE-11): * TEPT: Re-dx + Ev_dx + Am_dx + Deterioro ($\ge 2$ en cada uno).TEPT-C: Cumplir criterios TEPT + AAO (Da_dx + An_dx + Ar_dx + DFAAO).Escala de Horowitz: Análisis cualitativo de Intrusión, Evitación e Hiperactivación. No mencionar el trauma, sino el impacto en el sistema nervioso.SCL-90-R: Selección de baremo por edad/género. Nivel significativo $T \ge 63$.5. Área de Afrontamiento y SensorialidadBrief COPE: Ordenar las 14 escalas de mayor a menor uso.CRI: Resumir el relato de A2. Jerarquizar estrategias ante el evento puntual.Perfil Sensorial (Dunn): Cuadrantes O19 a O22. Comparar con rango "Similar a los demás".OEQ-II (AACC): Promedios K5-K9. Intensidad elevada $\ge 3.8$. Gráfico de barras obligatorio.🟠 IV. MOTOR DE INTEGRACIÓN Y CLUSTERS CUALITATIVOSLa IA debe clasificar la información en los siguientes Clusters Oficiales:Sección A (Procesos): Atención, Memoria, Funciones Ejecutivas, Procesamiento, Comunicación/Estilo Cognitivo, Sensorialidad.Sección B (Áreas de Vida): Laboral/Académica, Social (Masking/Camuflaje), Emocional y Regulación, Cotidiana y Autocuidado, Intereses Profundos, Información de Terceros.Análisis de Discrepancias: Cruce automático entre ICG vs. CIT, y CAT-Q vs. Pruebas Sociales.🔴 V. ESPECIFICACIONES DE LA APP (STREAMLIT)Dual Input: Carga de múltiples Excels o administración manual de ítems en vivo.Visualización: * Gráficos de Barras Verticales para perfiles multidimensionales (Prohibido radiales/araña).Tablas técnicas para puntajes únicos.Salida: Documento Word (.docx) basado en los modelos (Autismo, TDAH, AACC, Asesoría, Psicológico, ADOS-2).Recomendaciones: Motor de sugerencias basado en el perfil de soporte detectado.
+import streamlit as st
+import pandas as pd
+import numpy as np
+from docx import Document
+
+# Configuración de la página
+st.set_page_config(page_title="Mujeres Neurodivergentes - App de Informes", layout="wide")
+
+# Barra Lateral (Sidebar)
+st.sidebar.title("Configuración")
+api_key = st.sidebar.text_input("API Key", type="password")
+motor_ia = st.sidebar.selectbox("Motor de IA", ["GPT-4o", "Claude 3.5 Opus/Sonnet", "Gemini 1.5 Pro"])
+tipo_informe = st.sidebar.selectbox("Tipo de Informe", ["Autismo", "TDAH", "AACC", "Asesoría", "Psicológico"])
+
+# Cuerpo Principal - Carga de Datos
+st.title("Carga de Datos")
+
+# Subir Archivos
+archivos_subidos = st.file_uploader("Subir Archivos (Excel/Word)", accept_multiple_files=True)
+
+# Detectar tests automáticamente
+if archivos_subidos:
+    for archivo in archivos_subidos:
+        if archivo.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+            # Lógica para detectar tests en archivos Excel según el Manual Técnico
+            df = pd.read_excel(archivo)
+            if 'F143' in df.columns:
+                bdi_ii_total = df['F143'].iloc[0]
+                bdi_ii_item_9 = df['F57'].iloc[0]
+            if 'P14' in df.columns and 'P19' in df.columns:
+                itq_tept = all(df[f'P{i}'].iloc[0] >= 2 for i in range(1, 7)) and any(df[f'P{i}'].iloc[0] > 0 for i in range(7, 10))
+                itq_tept_c = itq_tept and all(df[f'C{i}'].iloc[0] >= 2 for i in [1, 2, 3, 4, 5, 6]) and any(df[f'C{i}'].iloc[0] > 0 for i in range(7, 10))
+            # Agregar lógica para detectar otros tests según el Manual Técnico
+        elif archivo.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            # Lógica para detectar tests en archivos Word según el Manual Técnico
+            doc = Document(archivo)
+            # Buscar palabras clave o patrones específicos en el documento para identificar los tests
+            # Extraer los puntajes y realizar los cálculos necesarios según el Manual Técnico
+
+# Botón de Carga Manual de Puntajes
+if st.button("Carga Manual de Puntajes"):
+    # Desplegar formulario organizado por áreas
+    with st.expander("Capacidad Cognitiva y Altas Capacidades (AACC)"):
+        wais_iv_pb = st.number_input("WAIS-IV (Puntaje Bruto)")
+        raven_pb = st.number_input("Raven (Puntaje Bruto)")
+        kbit_pb = st.number_input("KBIT (Puntaje Bruto)")
+        crea_pb = st.number_input("CREA (Puntaje Bruto)")
+        oeq_ii_pb = st.number_input("OEQ-II (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    with st.expander("Neurodesarrollo: Autismo (Fenotipo Femenino y Adultos)"):
+        ados_2_pb = st.number_input("ADOS-2 (Puntaje Bruto)")
+        aaa_pb = st.number_input("AAA (Puntaje Bruto)")
+        amse_pb = st.number_input("AMSE (Puntaje Bruto)")
+        aq_pb = st.number_input("AQ (Puntaje Bruto)")
+        asdi_pb = st.number_input("ASDI (Puntaje Bruto)")
+        cat_q_pb = st.number_input("CAT-Q (Puntaje Bruto)")
+        gq_asc_pb = st.number_input("GQ-ASC (Puntaje Bruto)")
+        icse_pb = st.number_input("ICSE (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    with st.expander("Neurodesarrollo: TDAH (Adultos y Retrospectivo)"):
+        adhd_rs_pb = st.number_input("ADHD-RS (Puntaje Bruto)")
+        diva_5_pb = st.number_input("DIVA-5 (Puntaje Bruto)")
+        wurs_25_pb = st.number_input("WURS-25 (Puntaje Bruto)")
+        caars_l_pb = st.number_input("CAARS-L (Puntaje Bruto)")
+        asrs_v1_1_pb = st.number_input("ASRS-v1.1 (Puntaje Bruto)")
+        dex_sp_pb = st.number_input("DEX-Sp (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    with st.expander("Personalidad y Socioemocional"):
+        iccp_pb = st.number_input("ICCP (Puntaje Bruto)")
+        pid_5_pb = st.number_input("PID-5 (Puntaje Bruto)")
+        scl_90_r_pb = st.number_input("SCL-90-R (Puntaje Bruto)")
+        neo_pi_r_pb = st.number_input("NEO-PI-R (Puntaje Bruto)")
+        spin_pb = st.number_input("SPIN (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    with st.expander("Estado Emocional y Trauma"):
+        bdi_ii_item_9 = st.number_input("BDI-II (Ítem 9)", min_value=0, max_value=3)
+        bdi_ii_total = st.number_input("BDI-II (Total)", min_value=0, max_value=63)
+        bai_pb = st.number_input("BAI (Puntaje Bruto)")
+        itq_pb = st.number_input("ITQ (Puntaje Bruto)")
+        escala_horowitz_pb = st.number_input("Escala de Horowitz (IES) (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    with st.expander("Afrontamiento, Sensorialidad y Conducta"):
+        perfil_sensorial_pb = st.number_input("Perfil Sensorial (Dunn) (Puntaje Bruto)")
+        rbs_r_pb = st.number_input("RBS-R (Puntaje Bruto)")
+        brief_cope_pb = st.number_input("Brief COPE (Puntaje Bruto)")
+        cri_a_pb = st.number_input("CRI-A (Puntaje Bruto)")
+        # Agregar más tests de esta área
+
+    # Lógica Interna
+    if bdi_ii_item_9 > 0:
+        st.warning("¡Alerta de Seguridad! El ítem 9 del BDI-II indica riesgo suicida.")
+
+    # Lógica para transformar PB a puntajes escalares, percentiles, etc.
+    # según el Manual Técnico para cada test
+    wais_iv_cie = calcular_cie_wais_iv(wais_iv_pb)
+    wais_iv_icg = calcular_icg_wais_iv(wais_iv_pb)
+    
+    itq_tept = (itq_pb >= 2).sum() >= 6 and (itq_pb[6:9] > 0).any()
+    itq_tept_c = itq_tept and (itq_pb[9:15] >= 2).sum() >= 6 and (itq_pb[15:18] > 0).any()
+
+    # Agregar lógica para calcular puntajes y realizar interpretaciones
+    # según el Manual Técnico para cada test
+    # ...
+
+# Funciones auxiliares para cálculos según el Manual Técnico
+def calcular_cie_wais_iv(puntaje_bruto):
+    # Lógica para calcular el CIE del WAIS-IV según el Manual Técnico
+    # ...
+    return cie
+
+def calcular_icg_wais_iv(puntaje_bruto):
+    # Lógica para calcular el ICG del WAIS-IV según el Manual Técnico
+    # ...
+    return icg
+
+# Agregar más funciones auxiliares para otros cálculos según el Manual Técnico
+# ...
+
+# Resto del código para procesar los datos y generar el informe
+# ...
